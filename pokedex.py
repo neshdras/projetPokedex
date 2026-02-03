@@ -3,7 +3,6 @@ from PIL import ImageTk, Image
 
 fenetre = tk.Tk()
 fenetre.title("Projet Pokedex")
-fenetre.geometry("700x700")
 
 
 class Pokemon:
@@ -14,24 +13,41 @@ class Pokemon:
         self.high = high
         self.capacity = capacity
 
-    def info_poke(self):
-        img_pokemon.config(image= ImageTk.PhotoImage(Image.open(f"./projet_pokedex/img/{self.name}.png")))
-        info_pokemon.insert("1.0", f"Nom = {self.name}\n")
-        info_pokemon.insert("2.0", f"Type = {self.type}\n")
-        info_pokemon.insert("3.0", f"Poids = {self.weight}\n")
-        info_pokemon.insert("4.0", f"Taille = {self.high}\n")
-        info_pokemon.insert("5.0", f"Capacités = {self.capacity}")
 
 def info_choice():
     info_pokemon.delete("1.0", "end")
     choice = list_pokedex.curselection()
     index = choice[0]
-    for info in pokedex:
-        info_pokemon.insert(tk.END, f"Nom = {pokedex[index].name}\n")
-        info_pokemon.insert(tk.END, f"Type = {pokedex[index].type}\n")
-        info_pokemon.insert(tk.END, f"Poids = {pokedex[index].weight}\n")
-        info_pokemon.insert(tk.END, f"Taille = {pokedex[index].high}\n")
-        info_pokemon.insert(tk.END, f"Capacités = {pokedex[index].capacity}")
+    info_pokemon.insert(tk.END, f"Nom = {pokedex[index].name}\n")
+    info_pokemon.insert(tk.END, f"Type = {pokedex[index].type}\n")
+    info_pokemon.insert(tk.END, f"Poids = {pokedex[index].weight}\n")
+    info_pokemon.insert(tk.END, f"Taille = {pokedex[index].high}\n")
+    info_pokemon.insert(tk.END, f"Capacités = {pokedex[index].capacity}")
+
+def new_poke():
+    name_label.pack()
+    new_name.pack()
+    type_label.pack()
+    new_type.pack()
+    height_label.pack()
+    new_height.pack()
+    weight_label.pack()
+    new_weight.pack()
+    capacity_label.pack()
+    new_capacity.pack()
+    
+    btn_add.pack()
+
+def add_new():
+    new = new_name.get()
+    new = Pokemon
+    new.name = new_name.get()
+    new.type = new_type.get()
+    new.high = new_height.get()
+    new.weight = new_weight.get()
+    new.capacity = new_capacity.get()
+    pokedex.append(new)
+    list_pokedex.insert(tk.END, f"{new.name}")
 
 
 eevee = Pokemon("Eevee", "Normal", "6,5 kg" , "0,3m", "Baton pass")
@@ -41,13 +57,25 @@ pokedex.append(eevee)
 pokedex.append(pikachu)
    
 
-list_pokedex = tk.Listbox(fenetre, width=200)
+list_pokedex = tk.Listbox(fenetre)
 list_pokedex.pack()
 btn = tk.Button(fenetre, text="Rechercher", command=info_choice).pack()
 img_pokemon = tk.Label(fenetre)
 img_pokemon.pack()
 info_pokemon = tk.Text(fenetre)
 info_pokemon.pack()
+btn_new = tk.Button(fenetre, text="Ajouter un pokemon", command=new_poke).pack()
+name_label = tk.Label(fenetre, text="Nom : ")
+new_name = tk.Entry(fenetre)
+type_label = tk.Label(fenetre, text="Type : ")
+new_type = tk.Entry(fenetre)
+height_label = tk.Label(fenetre, text="Taille : ")
+new_height = tk.Entry(fenetre)
+weight_label = tk.Label(fenetre, text="Poids : ")
+new_weight = tk.Entry(fenetre)
+capacity_label = tk.Label(fenetre, text="Capacité : ")
+new_capacity = tk.Entry(fenetre)
+btn_add = tk.Button(fenetre, text="Ajouter", command=add_new)
 
 
 i = 0
