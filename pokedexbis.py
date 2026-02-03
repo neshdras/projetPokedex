@@ -26,7 +26,7 @@ def add_new():
     name["poids"] = new_weight.get()
     pokedex.append(name)
     list_pokedex.insert(tk.END, f"{name['nom']}")
-    
+
     
 eevee = {"name": "Evoli", "type": "Normal", "taille":"0,3 m", "poids":"3,5 kg"}
 pikachu = {"name": "Pikachu", "type": "Electrique", "taille": "0,4 m", "poids": "6 kg"}
