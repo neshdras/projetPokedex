@@ -1,18 +1,12 @@
 import tkinter as tk
 from PIL import ImageTk, Image
+from liste_pokemon import pokedex, Pokemon
+
 
 fenetre = tk.Tk()
 fenetre.title("Projet Pokedex")
 
-
-class Pokemon:
-    def __init__(self, name, type, weight, high, capacity):
-        self.name = name
-        self.type = type
-        self.weight = weight
-        self.high = high
-        self.capacity = capacity
-
+file = open("text_pokedex.txt", "r", encoding="utf8")
 
 def info_choice():
     info_pokemon.delete("1.0", "end")
@@ -35,10 +29,10 @@ def new_poke():
     new_weight.pack()
     capacity_label.pack()
     new_capacity.pack()
-    
     btn_add.pack()
 
 def add_new():
+    global file
     new = new_name.get()
     new = Pokemon
     new.name = new_name.get()
@@ -48,14 +42,10 @@ def add_new():
     new.capacity = new_capacity.get()
     pokedex.append(new)
     list_pokedex.insert(tk.END, f"{new.name}")
+    with open("text_pokedex.txt", "a", encoding="utf8") as file:
+         file.write(f"Nom = {new.name}, Type = {new.type}, Taille = {new.high}, Poids = {new.weight}, Capacité = {new.capacity}\n")
 
 
-eevee = Pokemon("Eevee", "Normal", "6,5 kg" , "0,3m", "Baton pass")
-pikachu = Pokemon("Pikachu", "Electrique", "3,5 kg", "0,3 m", "Electacle")
-pokedex = []
-pokedex.append(eevee)
-pokedex.append(pikachu)
-   
 
 list_pokedex = tk.Listbox(fenetre)
 list_pokedex.pack()

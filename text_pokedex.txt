@@ -1,0 +1,2 @@
+Nom = Brindibou, Type = Plante, Taille = 0,3 m, Poids = 3,5 kg, Capacité = Tranch'Herbe
+Nom = Miaouss, Type = Normal, Taille = 0,4 m, Poids = 4,2 kg, Capacité = Jackpot
