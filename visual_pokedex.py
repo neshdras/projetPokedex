@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 
 
 fenetre = tk.Tk()
+fenetre.resizable(width=False, height=False)
 fenetre.title("Projet Pokedex")
 
 class Pokemon:
@@ -19,7 +20,7 @@ pokedex = []
 pokedex.append(eevee)
 pokedex.append(pikachu)
 
-file = open("text_pokedex.txt", "r", encoding="utf8")
+save_entry = open("text_pokedex.txt", "r", encoding="utf8")
 
 def info_choice():
     info_pokemon.delete("1.0", "end")
@@ -30,10 +31,11 @@ def info_choice():
     info_pokemon.insert(tk.END, f"Poids = {pokedex[index].weight}\n")
     info_pokemon.insert(tk.END, f"Taille = {pokedex[index].high}\n")
     info_pokemon.insert(tk.END, f"Capacités = {pokedex[index].capacity}")
-    image = ImageTk.PhotoImage(Image.open(f"./img/{pokedex[index].name}.png"))
-    # print(f"../img/{pokedex[index].name}.png")
-    img_pokemon.config(image=image)
-    
+    image = Image.open(f"./img/{pokedex[index].name}.png")
+    img_info = image.resize((150, 150))
+    img_poke = ImageTk.PhotoImage(img_info)
+    img_pokemon.config(image=img_poke)
+    img_pokemon.image = img_poke
 
 def new_poke():
     name_label.pack()
@@ -49,7 +51,7 @@ def new_poke():
     btn_add.pack()
 
 def add_new():
-    global file
+    global save_entry
     new = new_name.get()
     new = Pokemon
     new.name = new_name.get()
@@ -59,15 +61,15 @@ def add_new():
     new.capacity = new_capacity.get()
     pokedex.append(new)
     list_pokedex.insert(tk.END, f"{new.name}")
-    with open("text_pokedex.txt", "a", encoding="utf8") as file:
-         file.write(f"Nom = {new.name}, Type = {new.type}, Taille = {new.high}, Poids = {new.weight}, Capacité = {new.capacity}\n")
+    with open("text_pokedex.txt", "a", encoding="utf8") as save_entry:
+         save_entry.write(f"Nom = {new.name}, Type = {new.type}, Taille = {new.high}, Poids = {new.weight}, Capacité = {new.capacity}\n")
 
 
 
 list_pokedex = tk.Listbox(fenetre)
 list_pokedex.pack()
 btn = tk.Button(fenetre, text="Rechercher", command=info_choice).pack()
-img_pokemon = tk.Label(fenetre)
+img_pokemon = tk.Label(fenetre, text="IMG not found")
 img_pokemon.pack()
 info_pokemon = tk.Text(fenetre)
 info_pokemon.pack()
