@@ -1,10 +1,23 @@
 import tkinter as tk
-from PIL import ImageTk, Image
-from liste_pokemon import pokedex, Pokemon
+from PIL import Image, ImageTk
 
 
 fenetre = tk.Tk()
 fenetre.title("Projet Pokedex")
+
+class Pokemon:
+    def __init__(self, name, type, weight, high, capacity):
+        self.name = name
+        self.type = type
+        self.weight = weight
+        self.high = high
+        self.capacity = capacity
+
+eevee = Pokemon("Evoli", "Normal", "6,5 kg" , "0,3m", "Baton pass")
+pikachu = Pokemon("Pikachu", "Electrique", "3,5 kg", "0,3 m", "Electacle")
+pokedex = []
+pokedex.append(eevee)
+pokedex.append(pikachu)
 
 file = open("text_pokedex.txt", "r", encoding="utf8")
 
@@ -17,6 +30,10 @@ def info_choice():
     info_pokemon.insert(tk.END, f"Poids = {pokedex[index].weight}\n")
     info_pokemon.insert(tk.END, f"Taille = {pokedex[index].high}\n")
     info_pokemon.insert(tk.END, f"Capacités = {pokedex[index].capacity}")
+    image = ImageTk.PhotoImage(Image.open(f"./img/{pokedex[index].name}.png"))
+    # print(f"../img/{pokedex[index].name}.png")
+    img_pokemon.config(image=image)
+    
 
 def new_poke():
     name_label.pack()
@@ -67,13 +84,10 @@ capacity_label = tk.Label(fenetre, text="Capacité : ")
 new_capacity = tk.Entry(fenetre)
 btn_add = tk.Button(fenetre, text="Ajouter", command=add_new)
 
-
 i = 0
 for poke in pokedex:
         list_pokedex.insert(tk.END, f"{pokedex[i].name}")
-        print(pokedex)
         i += 1
 
-
-
 fenetre.mainloop()
+
