@@ -124,7 +124,6 @@ def save_modif():
 def erase():
     choice = list_pokedex.curselection()
     index = choice[0]
-    print(len(pokedex))
     del pokedex[index]
     list_pokedex.delete(index)
 
@@ -166,11 +165,6 @@ modif_weight = tk.Entry(fenetre)
 capacity_label_modif = tk.Label(fenetre)
 modif_capacity = tk.Entry(fenetre)
 btn_save_modif = tk.Button(fenetre, text="Sauvegarder", command=save_modif)
-
-# if list_pokedex.get(list_pokedex.curselection()) is None:
-#     print ("hello")
-#     btn_search.config(state=tk.DISABLED)
-#     btn_erase.config(state=tk.DISABLED)
 
 i = 0
 for poke in pokedex:
